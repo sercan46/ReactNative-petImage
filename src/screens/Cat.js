@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, Image ,Dimensions, StyleSheet} from 'react-native';
+import { View, Text, SafeAreaView, Image, Dimensions, StyleSheet, ActivityIndicator } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import _ from 'lodash';
@@ -11,17 +11,22 @@ export default class CatScreen extends Component {
     constructor() {
         super();
         this.state = {
-            cat: []
+            cat: [],
+            loading: false
         };
     }
 
     getCat() {
+        this.setState({loading:false})
         axios.get('https://api.thecatapi.com/v1/images/search').then((resp) => {
-            this.setState({ cat: resp.data[0] })
+            if (resp) {
+                this.setState({ loading: true });
+                this.setState({ cat: resp.data[0] })
+
+            }
         })
     }
     componentDidMount() {
-        console.log('asdasd',deviceWidth)
         this.getCat();
     }
     goBack() {
@@ -29,46 +34,63 @@ export default class CatScreen extends Component {
 
         this.props.navigation.dispatch(popAction);
     }
+    renderImage() {
+        if (this.state.loading == true) {
+            return (
+                <SafeAreaView>
+                    <Image
+                        style={{ width: deviceWidth, height: deviceHeight - 150, resizeMode: 'stretch' }}
+                        source={{
+                            uri: this.state.cat.url,
+                        }}
+                    /> 
+                    <TouchableOpacity onPress={() => { this.getCat() }}>
+                        <View style={styles.viewFooter}>
+                            <Text style={styles.textView}>Diğer Pisi :)</Text>
+                        </View>
+                    </TouchableOpacity>
+                </SafeAreaView>
+            )
+        }
+        else {
+            return (
+                <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="crimson" />
+                </View>
+
+            )
+        }
+    }
     render() {
-        console.log('cat', this.state.cat.url)
         return (
             <View>
-                <SafeAreaView>
-                        <Image
-                            style={{ width: deviceWidth, height: deviceHeight-150,resizeMode: 'stretch' }}
-                            source={{
-                                uri: this.state.cat.url,
-                            }}
-                        />                
-                   <TouchableOpacity onPress={() => { this.getCat() }}>
-
-                   <View style={styles.viewFooter}>
-                       <Text style={styles.textView}>Diğer Pisicik :)</Text>
-                   </View>
-                   </TouchableOpacity>
-
-                </SafeAreaView>
-
+                {this.renderImage()}
             </View>
         )
     }
 }
-const styles=StyleSheet.create({
-        textView:{
-            textAlign:'center',
-            fontWeight:'bold',
-            fontSize:20,
-            color:'white'
-      
-        },
-        viewFooter:{
-            borderWidth:2,
-            marginLeft:75,
-            marginRight:75,
-            backgroundColor:'crimson',
-            marginTop:5,
-            borderRadius:15,
-            borderColor:'white'
-
-        }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: 'center'
+    },
+    horizontal: {
+        flexDirection: "row",
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: '100%'
+    },
+    textView: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: 'white'
+    },
+    viewFooter: {
+        borderWidth: 2,
+        backgroundColor: 'crimson',
+        borderRadius: 10,
+        borderColor: 'white'
+    }
 })

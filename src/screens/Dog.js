@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, Image ,Dimensions, StyleSheet} from 'react-native';
+import { View, Text, SafeAreaView, Image, Dimensions, StyleSheet,ActivityIndicator } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import _ from 'lodash';
@@ -11,60 +11,81 @@ export default class DogScreen extends Component {
     constructor() {
         super();
         this.state = {
-            dog: []
+            dog: [],
+            loading:false
         };
     }
 
-    getCat() {
+    getDog() {
+        this.setState({loading:false})
         axios.get('https://dog.ceo/api/breeds/image/random').then((resp) => {
-            console.log('resp',resp.data)
-           this.setState({ dog: resp.data })
+            this.setState({loading:true})
+            this.setState({ dog: resp.data })
         })
     }
     componentDidMount() {
-        this.getCat();
+        this.getDog();
     }
+    renderImage() {
+        if (this.state.loading == true) {
+            return (
+                <SafeAreaView>
+                <Image
+                    style={{ width: deviceWidth, height: deviceHeight - 150, resizeMode: 'stretch' }}
+                    source={{
+                        uri: this.state.dog.message,
+                    }}
+                />
+                <TouchableOpacity onPress={() => { this.getDog() }}>
 
+                    <View style={styles.viewFooter}>
+                        <Text style={styles.textView}>Diğer Kuçu :)</Text>
+                    </View>
+                </TouchableOpacity>
+
+            </SafeAreaView>
+            )
+        }
+        else {
+            return (
+                <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="crimson" />
+                </View>
+
+            )
+        }
+    }
     render() {
-        console.log('dog', this.state.dog)
         return (
             <View>
-                <SafeAreaView>
-                        <Image
-                            style={{ width: deviceWidth, height: deviceHeight-150 ,resizeMode: 'stretch'}}
-                            source={{
-                                uri: this.state.dog.message,
-                            }}
-                        />                
-                   <TouchableOpacity onPress={() => { this.getCat() }}>
-
-                   <View style={styles.viewFooter}>
-                       <Text style={styles.textView}>Diğer Kuçu :)</Text>
-                   </View>
-                   </TouchableOpacity>
-
-                </SafeAreaView>
-
+         
+                {this.renderImage()}
             </View>
         )
     }
 }
-const styles=StyleSheet.create({
-        textView:{
-            textAlign:'center',
-            fontWeight:'bold',
-            fontSize:20,
-            color:'white'
-      
-        },
-        viewFooter:{
-            borderWidth:2,
-            marginLeft:75,
-            marginRight:75,
-            backgroundColor:'crimson',
-            marginTop:5,
-            borderRadius:15,
-            borderColor:'white'
-
-        }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: 'center'
+    },
+    horizontal: {
+        flexDirection: "row",
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: '100%'
+    },
+    textView: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: 'white'
+    },
+    viewFooter: {
+        borderWidth: 2,
+        backgroundColor: 'crimson',
+        borderRadius: 10,
+        borderColor: 'white'
+    }
 })

@@ -6,11 +6,11 @@ import { DOGIMAGE } from '../../image';
 
 export default class HomeScreen extends Component {
     goToDog = () => {
-        const pushAction = StackActions.push('DogPage', { user: 'Wojtek' });
+        const pushAction = StackActions.push('DogPage');
         this.props.navigation.dispatch(pushAction);
     };
     goToCat = () => {
-        const pushAction = StackActions.push('CatPage', { user: 'Wojtek' });
+        const pushAction = StackActions.push('CatPage');
         this.props.navigation.dispatch(pushAction);
     };
     render() {
@@ -28,7 +28,7 @@ export default class HomeScreen extends Component {
                     <View style={styles.imageContainer}>
 
                         <TouchableOpacity onPress={() => { this.goToDog() }}>
-                        <Image style={styles.catImage} source={DOGIMAGE} />
+                            <Image style={styles.catImage} source={DOGIMAGE} />
 
                             <Text style={styles.textPet}>Sevimli Köpekler</Text>
                         </TouchableOpacity>
@@ -62,13 +62,13 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         flex: 3,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        marginLeft:5,
-        marginRight:5
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginLeft: 5,
+        marginRight: 5
     },
-    textFoonter:{
-        flex:2  
+    textFoonter: {
+        flex: 2
     },
 
     textWelcome: {
@@ -85,23 +85,23 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     catImage: {
-        width: 200,
+        width: '100%',
         height: 200
     },
-    textPet:{
-        fontSize:20,
-        marginTop:5,
-        textAlign:'center',
-        color:'white'
+    textPet: {
+        fontSize: 20,
+        marginTop: 5,
+        textAlign: 'center',
+        color: '#b8fffa'
     },
-    textFooter:{
-        marginLeft:5,
-        fontSize:15,
-        color:'black'
+    textFooter: {
+        marginLeft: 5,
+        fontSize: 15,
+        color: 'black'
     },
-    textPerson:{
-        textAlign:'right',
-        marginRight:25,
-        fontWeight:'bold'
+    textPerson: {
+        textAlign: 'right',
+        marginRight: 25,
+        fontWeight: 'bold'
     }
 })

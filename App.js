@@ -16,7 +16,7 @@ function App() {
       <Stack.Navigator headerMode="screen"
         screenOptions={{
           headerTintColor: 'white',
-          headerStyle: { backgroundColor: 'black' },
+          headerStyle: { backgroundColor: 'black' ,alignSelf:'center'},
         }} >
         <Stack.Screen name="Home" component={HomeScreen} options={{
           title: 'Ana Sayfa',
