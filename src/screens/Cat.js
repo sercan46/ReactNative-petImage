@@ -46,7 +46,7 @@ export default class CatScreen extends Component {
                     /> 
                     <TouchableOpacity onPress={() => { this.getCat() }}>
                         <View style={styles.viewFooter}>
-                            <Text style={styles.textView}>Diğer Pisi :)</Text>
+                            <Text style={styles.textView}>Other Cat :)</Text>
                         </View>
                     </TouchableOpacity>
                 </SafeAreaView>

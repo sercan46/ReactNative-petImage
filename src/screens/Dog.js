@@ -39,7 +39,7 @@ export default class DogScreen extends Component {
                 <TouchableOpacity onPress={() => { this.getDog() }}>
 
                     <View style={styles.viewFooter}>
-                        <Text style={styles.textView}>Diğer Kuçu :)</Text>
+                        <Text style={styles.textView}>Other Dog :)</Text>
                     </View>
                 </TouchableOpacity>
 

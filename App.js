@@ -19,13 +19,13 @@ function App() {
           headerStyle: { backgroundColor: 'black' ,alignSelf:'center'},
         }} >
         <Stack.Screen name="Home" component={HomeScreen} options={{
-          title: 'Ana Sayfa',
+          title: 'Home',
         }} />
         <Stack.Screen name="DogPage" options={{
-          title: 'Sevimli Köpekler',
+          title: 'Cute Dogs',
         }}component={DogScreen} />
         <Stack.Screen name="CatPage" options={{
-          title: 'Sevimli Kediler',
+          title: 'Cute Cats',
         }}component={CatScreen} />
       </Stack.Navigator>
     </NavigationContainer>

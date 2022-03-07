@@ -19,27 +19,27 @@ export default class HomeScreen extends Component {
 
                 <SafeAreaView style={styles.container}>
                     <View style={styles.textWelcomeContainer}>
-                        <Text style={styles.textWelcome}>Minik Dostlarımız Uygulamasına Hoş Geldiniz</Text>
+                        <Text style={styles.textWelcome}>Welcome to Our Little Friends Application</Text>
                     </View>
                     <View style={styles.textInfoContainer}>
 
-                        <Text style={styles.textInfo}>Uygulamamızda rastgele kedi ve köpek resimleri gösterilmektedir. Yeni dostlarımaza merhaba demek istermisin :)</Text>
+                        <Text style={styles.textInfo}>Our application shows random pictures of cats and dogs. Would you like to say hello to our new friends :)</Text>
                     </View>
                     <View style={styles.imageContainer}>
 
                         <TouchableOpacity onPress={() => { this.goToDog() }}>
                             <Image style={styles.catImage} source={DOGIMAGE} />
 
-                            <Text style={styles.textPet}>Sevimli Köpekler</Text>
+                            <Text style={styles.textPet}>Cute Dogs</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => { this.goToCat() }}>
                             <Image style={styles.catImage} source={CATIMAGE} />
 
-                            <Text style={styles.textPet}>Sevimli Kediler</Text>
+                            <Text style={styles.textPet}>Cute Cats</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.textFoonter}>
-                        <Text style={styles.textFooter}>Bir milletin büyüklüğü ve ahlaki gelişimi, hayvanlara olan davranış biçimi ile değerlendirilir.</Text>
+                        <Text style={styles.textFooter}>The greatness and moral development of a nation is judged by the way it treats animals.</Text>
                         <Text style={styles.textPerson}>Mahatma Gandhi</Text>
 
                     </View>
